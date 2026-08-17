@@ -67,7 +67,7 @@ export const journey = {
     number: "Chapter 1",
     title: "The Beginning",
     notebook: `${RECIPIENT}'s University Story`,
-    photoCaption: "where it all started 💜",
+    photoCaption: "along the way 💜",
     lead: "Every big achievement starts with a small beginning.",
     body: [
       "Somewhere along the way,",
@@ -144,7 +144,7 @@ export const gallery = {
 export const letter = {
   eyebrow: "A letter",
   title: "A few words for you 💌",
-  greeting: `${RECIPIENT},`,
+  greeting: `Hiii ${RECIPIENT},`,
   paragraphs: [
     "You did it. Not by luck and not overnight — you did it by showing up on the hard days, and on the days nobody was watching.",
   ],
@@ -155,7 +155,7 @@ export const letter = {
     "One chapter closes here. Whatever you go after next, I hope you go after it exactly the way you went after this — stubbornly, and all the way to the end.",
     "I'm proud of you, and I'm glad I get to watch what comes next.",
   ],
-  signOff: "Congratulations, graduate. 💜",
+  signOff: "Congratulations, my fine graduate. 💜",
 };
 
 /* ---------------- Final scene ---------------- */
@@ -163,4 +163,20 @@ export const letter = {
 export const finale = {
   beat1: "This is only the beginning.",
   beat2: "Here's to everything waiting for you next. 💜",
+
+  /* The ceremony beat. Change these two lines the day after. */
+  ceremony: "And tomorrow, they finally call your name.",
+  party: "So go on — let's get this party started. 🎉",
+};
+
+/* ---------------- The sign-off ---------------- *
+ * ⚠️ SET YOUR NAME BELOW before you send this to her.
+ *
+ * `intro` is the warmth dial. Cooler → warmer:
+ *   "from me,"  ·  "with love,"  ·  "yours,"  ·  "always yours,"
+ */
+export const signature = {
+  intro: "with love,",
+  name: "Oluwaseyi(Temmy_Otsutsuki)",
+  note: "have the best day tomorrow. 💜",
 };

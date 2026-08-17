@@ -17,10 +17,15 @@
   place-items: center;
 }
 
+/* The last photo carries the whole ending — give it the room. */
+.final__photo {
+  width: min(84vw, 19rem);
+}
+
 .final__halo {
   position: absolute;
-  width: min(86vw, 20rem);
-  height: min(86vw, 20rem);
+  width: min(104vw, 25rem);
+  height: min(104vw, 25rem);
   pointer-events: none;
   background: radial-gradient(
     ellipse at 50% 50%,
@@ -48,6 +53,100 @@
   text-wrap: balance;
 }
 
+/* ---------- tomorrow ---------- */
+
+.final__party {
+  margin-top: clamp(3.5rem, 14vw, 5rem);
+}
+
+.final__ceremony {
+  font-size: var(--fs-md);
+  color: rgba(253, 244, 248, 0.7);
+  text-wrap: balance;
+}
+
+.final__party-line {
+  margin-top: 0.9rem;
+  font-size: var(--fs-lg);
+  color: #fff;
+  text-shadow: 0 0 30px rgba(255, 190, 235, 0.45);
+  text-wrap: balance;
+}
+
+/* ---------- the sign-off ---------- */
+
+.final__sign {
+  margin-top: clamp(3.5rem, 14vw, 5rem);
+}
+
+.final__sign-rule {
+  display: block;
+  width: 40px;
+  height: 1px;
+  margin: 0 auto 1.6rem;
+  background: rgba(255, 196, 226, 0.45);
+}
+
+.final__sign-intro {
+  font: 400 var(--fs-sm) / 1.4 var(--font-display);
+  font-style: italic;
+  color: rgba(253, 244, 248, 0.62);
+}
+
+/* The name is wiped in left to right, like it is being written. */
+.final__sign-name {
+  margin-top: 0.5rem;
+  font-family: var(--font-display);
+  /* Sized to hold a long handle on one line. `anywhere` is the safety net:
+     a name with no spaces in it would otherwise bleed into the gutters
+     rather than wrapping. */
+  font-size: clamp(1.4rem, 6.6vw, 2.4rem);
+  overflow-wrap: anywhere;
+  line-height: 1.25;
+  color: var(--pink-200);
+  text-shadow: 0 0 26px rgba(255, 168, 216, 0.4);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1100ms cubic-bezier(0.65, 0, 0.35, 1) 200ms;
+}
+
+.final__sign-name.is-written {
+  clip-path: inset(0 0 0 0);
+}
+
+.final__flourish {
+  display: block;
+  width: min(62%, 12rem);
+  height: auto;
+  margin: 0.35rem auto 0;
+  color: rgba(255, 168, 216, 0.75);
+}
+
+/* Drawn with the stroke itself, so it reads as one pen movement. */
+.final__flourish path {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  transition: stroke-dashoffset 1400ms cubic-bezier(0.5, 0, 0.3, 1) 900ms;
+}
+
+.final__flourish.is-drawn path {
+  stroke-dashoffset: 0;
+}
+
+.final__sign-note {
+  margin-top: 1.5rem;
+  font: 400 var(--fs-sm) / 1.5 var(--font-body);
+  color: rgba(253, 244, 248, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .final__sign-name {
+    clip-path: none;
+  }
+  .final__flourish path {
+    stroke-dashoffset: 0;
+  }
+}
+
 .final__spark {
   position: absolute;
   font-size: 0.95rem;
@@ -68,6 +167,17 @@
   right: 8%;
   bottom: 2%;
   animation-delay: 4s;
+}
+
+/* Shorter phones: step it back down so the closing lines stay on screen
+   with the photo. */
+@media (max-height: 760px) {
+  .final__photo {
+    width: min(64vw, 13.5rem);
+  }
+  .final__copy {
+    margin-top: 2rem;
+  }
 }
 
 @keyframes final-float {

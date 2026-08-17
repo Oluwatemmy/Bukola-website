@@ -24,8 +24,13 @@ const COLORS = ["#ffd3ea", "#ffa8d8", "#ff9fd4", "#e6a9e0", "#d089ea", "#c86fd8"
 
 type Props = {
   active: boolean;
-  /** `burst` = the door opening. `gentle` = the final scene. */
-  intensity?: "burst" | "gentle";
+  /**
+   * `burst`  — the door opening: one big pop from the centre.
+   * `gentle` — ambient drift for the final scene.
+   * `finale` — party poppers from the bottom corners, warm and triumphant
+   *            rather than chaotic. Roughly two-thirds the door's energy.
+   */
+  intensity?: "burst" | "gentle" | "finale";
   className?: string;
 };
 
@@ -62,16 +67,53 @@ export function Celebration({ active, intensity = "burst", className = "" }: Pro
 
     const narrow = w < 430;
     const burst = intensity === "burst";
+    const finale = intensity === "finale";
     /* Keep the count modest — this has to stay smooth on a mid-range phone. */
-    const total = burst ? (narrow ? 90 : 130) : narrow ? 34 : 48;
+    const total = burst ? (narrow ? 90 : 130) : finale ? (narrow ? 64 : 92) : narrow ? 34 : 48;
     const particles: Particle[] = [];
 
-    const spawn = (fromCentre: boolean): Particle => {
+    const spawn = (origin: "centre" | "corner" | "bottom"): Particle => {
       const kindRoll = Math.random();
-      const kind: Kind = kindRoll < 0.42 ? "confetti" : kindRoll < 0.75 ? "heart" : "star";
-      const maxLife = burst ? 1900 + Math.random() * 1600 : 4200 + Math.random() * 2600;
+      /* The finale leans on hearts and stars; confetti carries the door. */
+      const kind: Kind = finale
+        ? kindRoll < 0.3
+          ? "confetti"
+          : kindRoll < 0.68
+            ? "heart"
+            : "star"
+        : kindRoll < 0.42
+          ? "confetti"
+          : kindRoll < 0.75
+            ? "heart"
+            : "star";
+      const maxLife = burst
+        ? 1900 + Math.random() * 1600
+        : finale
+          ? 2600 + Math.random() * 1800
+          : 4200 + Math.random() * 2600;
 
-      if (fromCentre) {
+      /* Party poppers: fired inward and up from the two bottom corners. */
+      if (origin === "corner") {
+        const fromLeft = Math.random() < 0.5;
+        const angle = (fromLeft ? -Math.PI * 0.34 : -Math.PI * 0.66) + (Math.random() - 0.5) * 0.5;
+        const speed = 5.2 + Math.random() * 5;
+        return {
+          x: fromLeft ? -8 : w + 8,
+          y: h * (0.74 + Math.random() * 0.2),
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          size: (kind === "confetti" ? 5 : 10) + Math.random() * 6,
+          rot: Math.random() * Math.PI * 2,
+          vrot: (Math.random() - 0.5) * 0.18,
+          life: 0,
+          maxLife,
+          color: COLORS[(Math.random() * COLORS.length) | 0],
+          kind,
+          sway: 0.4 + Math.random() * 1,
+        };
+      }
+
+      if (origin === "centre") {
         const angle = -Math.PI / 2 + (Math.random() - 0.5) * 2.5;
         const speed = 3.4 + Math.random() * 5.6;
         return {
@@ -107,7 +149,7 @@ export function Celebration({ active, intensity = "burst", className = "" }: Pro
     };
 
     if (burst) {
-      for (let i = 0; i < total; i++) particles.push(spawn(true));
+      for (let i = 0; i < total; i++) particles.push(spawn("centre"));
     }
 
     const drawHeart = (s: number) => {
@@ -133,19 +175,21 @@ export function Celebration({ active, intensity = "burst", className = "" }: Pro
     let last = performance.now();
     let elapsed = 0;
     let emitted = 0;
-    const emitWindow = burst ? 0 : 7000;
-    const gravity = burst ? 0.028 : -0.004;
+    /* The finale fires in waves over a second, so it reads as a celebration
+       rather than a single pop. */
+    const emitWindow = burst ? 0 : finale ? 1000 : 7000;
+    const gravity = burst ? 0.028 : finale ? 0.02 : -0.004;
 
     const frame = (now: number) => {
       const dt = Math.min(now - last, 48);
       last = now;
       elapsed += dt;
 
-      /* Gentle mode trickles particles up rather than firing them all at once. */
+      /* Gentle and finale modes emit over time rather than all at once. */
       if (!burst && elapsed < emitWindow && emitted < total) {
         const want = Math.floor((elapsed / emitWindow) * total);
         while (emitted < want) {
-          particles.push(spawn(false));
+          particles.push(spawn(finale ? "corner" : "bottom"));
           emitted++;
         }
       }
@@ -167,7 +211,7 @@ export function Celebration({ active, intensity = "burst", className = "" }: Pro
 
         const fadeIn = Math.min(p.life / 220, 1);
         const fadeOut = 1 - Math.max(0, (p.life - (p.maxLife - 700)) / 700);
-        ctx.globalAlpha = Math.max(0, Math.min(fadeIn, fadeOut)) * (burst ? 0.95 : 0.8);
+        ctx.globalAlpha = Math.max(0, Math.min(fadeIn, fadeOut)) * (burst || finale ? 0.95 : 0.8);
 
         ctx.save();
         ctx.translate(p.x, p.y);
