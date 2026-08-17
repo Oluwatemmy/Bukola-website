@@ -33,6 +33,9 @@ export function LetterSection() {
             </p>
           ))}
 
+          {/* Given its own breath — it's the line that answers the quote above. */}
+          <p className="letter__hope">{copy.closingHope}</p>
+
           <p className="script letter__signoff">{copy.signOff}</p>
         </Reveal>
 

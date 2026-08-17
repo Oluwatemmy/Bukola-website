@@ -155,6 +155,10 @@ export const letter = {
     "One chapter closes here. Whatever you go after next, I hope you go after it exactly the way you went after this — stubbornly, and all the way to the end.",
     "I'm proud of you, and I'm glad I get to watch what comes next.",
   ],
+  /* The answer to the pull quote above: not there for every chapter, but
+     hoping to be there for some of the next ones. Set apart on purpose —
+     it lands harder with a pause before it. */
+  closingHope: "Hopefully, I get to be there for some of it too. 💜",
   signOff: "Congratulations, my fine graduate. 💜",
 };
 
