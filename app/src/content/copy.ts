@@ -84,7 +84,7 @@ export const journey = {
     progressTarget: 87,
     lead: "There were lectures. Assignments. Deadlines. Projects.",
     body: "And probably a few “I can't do this anymore” moments. 😭",
-    photoCaption: "the grind 💻",
+    photoCaption: "the grind 🏫📖",
     photoCaption2: "heads down 📚",
     badge: "PROJECT MODE: ACTIVATED 📝",
   },

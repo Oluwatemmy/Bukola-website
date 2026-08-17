@@ -1,0 +1,36 @@
+# Netlify configuration for automatic deploys from GitHub.
+#
+# Paths here are relative to `base`, NOT to the repo root — so with
+# base = "app", the publish directory below resolves to app/dist.
+
+[build]
+  base    = "app"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Single page — send everything to index.html rather than a 404.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Hashed asset file names never change contents, so they can cache forever.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Photos get replaced as new ones arrive — cache for a day, not a year.
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# It's a surprise. Keep it out of search results.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

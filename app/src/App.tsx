@@ -35,11 +35,24 @@ export default function App() {
   return (
     <LightboxProvider>
       <main className={`page ${entered ? "is-entered" : ""}`} aria-hidden={!entered}>
+        {/* The reveal stays mounted behind the door so its two photos are
+            already decoded when the doors open. */}
         <GraduationReveal entered={entered} />
-        <Journey />
-        <PhotoGallery />
-        <LetterSection />
-        <FinalScene />
+
+        {/* Everything below mounts only once she is through.
+            While the door is up the body is position:fixed, which collapses
+            the scroll context — the browser then treats every lazy image as
+            on-screen and downloads all of them up front. Mounting these late
+            is what keeps `loading="lazy"` doing its job. The swap happens
+            underneath the doorway light, so it is never visible. */}
+        {entered && (
+          <>
+            <Journey />
+            <PhotoGallery />
+            <LetterSection />
+            <FinalScene />
+          </>
+        )}
       </main>
 
       {doorMounted && <DoorExperience onOpened={handleOpened} onFinished={handleFinished} />}
