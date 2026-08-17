@@ -1,0 +1,82 @@
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  /* Nothing behind should scroll or rubber-band while this is up. */
+  touch-action: none;
+  overscroll-behavior: contain;
+  cursor: zoom-out;
+  opacity: 0;
+  background: rgba(10, 3, 18, 0);
+  transition:
+    opacity 260ms var(--ease-out),
+    background-color 400ms var(--ease-out);
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  background: rgba(10, 3, 18, 0.92);
+}
+
+/* The photo is placed at its final rect and transformed back onto the
+   thumbnail, so releasing the transform grows it into place. */
+.lightbox__img {
+  position: fixed;
+  transform-origin: center center;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 30px 70px -20px rgba(4, 1, 8, 0.9);
+  transition: transform 400ms var(--ease-out);
+  will-change: transform;
+}
+
+.lightbox__caption {
+  position: fixed;
+  left: 50%;
+  bottom: calc(3.1rem + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  font: 400 1rem/1.3 var(--font-display);
+  font-style: italic;
+  color: var(--pink-200);
+  text-shadow: 0 2px 18px rgba(6, 1, 12, 0.9);
+  opacity: 0;
+  transition: opacity 300ms var(--ease-out) 260ms;
+  pointer-events: none;
+}
+
+.lightbox__hint {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(1.15rem + env(safe-area-inset-bottom));
+  text-align: center;
+  font: 500 0.62rem/1 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(253, 244, 248, 0.42);
+  opacity: 0;
+  transition: opacity 400ms var(--ease-out) 420ms;
+  pointer-events: none;
+}
+
+.lightbox.is-open .lightbox__caption,
+.lightbox.is-open .lightbox__hint {
+  opacity: 1;
+}
+
+/* ---------- the affordance on the cards ---------- */
+
+.photo--zoomable {
+  cursor: zoom-in;
+}
+
+.photo--zoomable:focus-visible {
+  outline: 2px solid var(--pink-300);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox__img {
+    transition: none;
+  }
+}

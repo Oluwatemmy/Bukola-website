@@ -1,0 +1,116 @@
+.gallery {
+  background: radial-gradient(110% 70% at 50% 20%, #6b3382 0%, #3c1750 50%, #1c0726 100%);
+  padding-top: calc(var(--section-y) * 1.05);
+  padding-bottom: calc(var(--section-y) * 1.05);
+}
+
+.gallery__inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery__title {
+  font-size: var(--fs-xl);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.gallery__sub {
+  margin-top: 0.6rem;
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: rgba(253, 244, 248, 0.6);
+}
+
+/* ---------- loose stacks ----------
+   Cards overlap using negative margins rather than absolute
+   positioning, so nothing can ever escape the column on a
+   narrow phone.                                            */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  margin: clamp(1.75rem, 7vw, 2.75rem) 0 0;
+}
+
+.stack__card {
+  position: relative;
+}
+
+.stack__card--0 {
+  width: 58%;
+  margin-left: 2%;
+  align-self: flex-start;
+  z-index: 1;
+}
+
+.stack__card--1 {
+  width: 47%;
+  margin-top: -11%;
+  margin-right: 1%;
+  align-self: flex-end;
+  z-index: 3;
+}
+
+.stack__card--2 {
+  width: 43%;
+  margin-top: -7%;
+  margin-left: 13%;
+  align-self: flex-start;
+  z-index: 2;
+}
+
+/* ---------- the full-bleed beat ---------- */
+
+.gallery__full {
+  position: relative;
+  /* Bleed out through the section gutter — never past the viewport. */
+  margin: clamp(2.5rem, 10vw, 4rem) calc(var(--gutter) * -1);
+  overflow: hidden;
+}
+
+.gallery__full .photo {
+  max-height: 84svh;
+}
+
+.gallery__full-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(16, 4, 24, 0.5) 0,
+    rgba(16, 4, 24, 0) 26%,
+    rgba(16, 4, 24, 0.35) 58%,
+    rgba(12, 3, 20, 0.92) 100%
+  );
+}
+
+.gallery__full-copy {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: clamp(1.75rem, 7vw, 2.75rem);
+  text-align: center;
+}
+
+.gallery__full-copy p {
+  font-size: var(--fs-xl);
+  color: #fff;
+  text-shadow: 0 2px 24px rgba(12, 3, 20, 0.9);
+}
+
+.gallery__full-rule {
+  display: block;
+  width: 44px;
+  height: 1px;
+  margin: 0 auto 1.1rem;
+  background: rgba(255, 214, 240, 0.5);
+}
+
+.gallery__footnote {
+  margin-top: clamp(2rem, 8vw, 3rem);
+  text-align: center;
+  font-size: var(--fs-md);
+  color: rgba(253, 244, 248, 0.7);
+}

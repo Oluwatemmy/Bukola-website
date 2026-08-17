@@ -1,0 +1,83 @@
+.final {
+  background: radial-gradient(120% 90% at 50% 34%, #a75fae 0%, #6a2a86 34%, #3a1450 68%, #1c0726 100%);
+  padding-top: calc(var(--section-y) * 1.1);
+  padding-bottom: calc(var(--section-y) * 1.3);
+  text-align: center;
+}
+
+.final__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.final__photo-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.final__halo {
+  position: absolute;
+  width: min(86vw, 20rem);
+  height: min(86vw, 20rem);
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(255, 214, 240, 0.4),
+    rgba(255, 214, 240, 0) 70%
+  );
+}
+
+.final__copy {
+  margin-top: clamp(2.5rem, 10vw, 3.5rem);
+}
+
+.final__beat1 {
+  font-size: var(--fs-xl);
+  color: #fff;
+  text-shadow: 0 0 30px rgba(255, 190, 235, 0.5);
+  text-wrap: balance;
+}
+
+.final__beat2 {
+  margin-top: 1.1rem;
+  padding-inline: 0.5rem;
+  font-size: clamp(1.05rem, 4.6vw, 1.35rem);
+  color: var(--pink-200);
+  text-wrap: balance;
+}
+
+.final__spark {
+  position: absolute;
+  font-size: 0.95rem;
+  animation: final-float 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.final__spark--a {
+  left: 1%;
+  top: 34%;
+}
+.final__spark--b {
+  right: 4%;
+  top: 46%;
+  animation-delay: 2s;
+}
+.final__spark--c {
+  right: 8%;
+  bottom: 2%;
+  animation-delay: 4s;
+}
+
+@keyframes final-float {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.65;
+  }
+  50% {
+    transform: translateY(-12px);
+    opacity: 1;
+  }
+}

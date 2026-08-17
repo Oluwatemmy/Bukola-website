@@ -1,0 +1,37 @@
+.polaroid {
+  --tilt: 0deg;
+  position: relative;
+  padding: 8px 8px 8px;
+  background: var(--paper);
+  border-radius: 3px;
+  box-shadow: var(--shadow-photo);
+  transform: rotate(var(--tilt));
+  /* Transform-only hover/press: no layout work. */
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.polaroid:has(.polaroid__caption) {
+  padding-bottom: 2rem;
+}
+
+.polaroid--glow {
+  box-shadow:
+    var(--shadow-photo),
+    0 0 60px 6px rgba(255, 170, 220, 0.28);
+}
+
+.polaroid__caption {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 0.55rem;
+  text-align: center;
+  font: 400 0.82rem/1.15 var(--font-display);
+  font-style: italic;
+  color: var(--ink);
+}
+
+/* Reveal wrappers rotate the card in; keep the tilt when they settle. */
+.reveal .polaroid {
+  transition-delay: inherit;
+}

@@ -1,0 +1,73 @@
+/* ============================================================
+   Design tokens — the whole colour/typography world lives here.
+   Change these and the entire site follows.
+   ============================================================ */
+
+:root {
+  /* --- Plum / purple ground --- */
+  --plum-900: #11041b;
+  --plum-850: #150621;
+  --plum-800: #1a0724;
+  --plum-700: #220b2e;
+  --plum-600: #2a0f36;
+  --plum-500: #3c1450;
+  --plum-400: #4a1f5c;
+  --plum-300: #5a2570;
+  --plum-200: #6b3382;
+  --plum-100: #7a3a97;
+
+  /* --- Pink / lavender light --- */
+  --pink-100: #fff3fa;
+  --pink-200: #ffd8ec;
+  --pink-300: #ffc4e2;
+  --pink-400: #ffa8d8;
+  --pink-500: #ff9fd4;
+  --lilac-300: #e6a9e0;
+  --lilac-400: #d089ea;
+  --lilac-500: #c86fd8;
+  --violet-300: #c9a9e9;
+
+  /* --- Surfaces & ink --- */
+  --paper: #fdf4f8;
+  --ink: #3a1150;
+  --ink-deep: #2a0f33;
+  --gold: #d3a459;
+  --gold-bright: #f7d070;
+
+  --text: #fdf4f8;
+  --text-soft: rgba(253, 244, 248, 0.72);
+  --text-faint: rgba(253, 244, 248, 0.45);
+
+  /* --- Type --- */
+  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Fluid type scale, tuned for 360px → 430px phones first. */
+  --fs-hero: clamp(2.75rem, 13vw, 4rem);
+  --fs-xl: clamp(1.85rem, 8.6vw, 2.6rem);
+  --fs-lg: clamp(1.5rem, 6.9vw, 2.05rem);
+  --fs-md: clamp(1.15rem, 5vw, 1.45rem);
+  --fs-body: clamp(0.98rem, 4.1vw, 1.12rem);
+  --fs-sm: clamp(0.86rem, 3.5vw, 0.95rem);
+  --fs-xs: 0.68rem;
+
+  /* --- Rhythm --- */
+  --gutter: clamp(1.25rem, 6vw, 2rem);
+  --stack: clamp(1rem, 4vw, 1.5rem);
+  --section-y: clamp(4rem, 14vw, 6rem);
+
+  /* --- Motion --- */
+  --ease-out: cubic-bezier(0.22, 0.75, 0.28, 1);
+  --ease-door: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-fast: 260ms;
+  --dur: 620ms;
+  --dur-slow: 1100ms;
+
+  /* Runtime-controlled: set to 0 by the reduced-motion hook. */
+  --motion: 1;
+
+  --radius-card: 18px;
+  --shadow-card: 0 20px 44px -16px rgba(10, 3, 18, 0.8);
+  --shadow-photo: 0 22px 44px -14px rgba(10, 3, 18, 0.85);
+}

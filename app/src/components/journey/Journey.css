@@ -1,0 +1,725 @@
+/* ============================================================
+   The Journey — five chapters, one room, changing light.
+   ============================================================ */
+
+.chapter {
+  --chapter-pad: clamp(3.5rem, 12vw, 5.5rem);
+  padding-top: var(--chapter-pad);
+  padding-bottom: var(--chapter-pad);
+}
+
+.chapter--dream {
+  background: radial-gradient(110% 70% at 50% 26%, #5a2570 0%, #341246 46%, #1a0724 100%);
+}
+.chapter--work {
+  background: radial-gradient(110% 70% at 50% 30%, #4a1f5c 0%, #2a0f36 52%, #150621 100%);
+}
+.chapter--dark {
+  background: radial-gradient(110% 70% at 50% 24%, #3c1450 0%, #230c31 50%, #11041b 100%);
+}
+.chapter--calm {
+  background: radial-gradient(110% 80% at 50% 40%, #6b3382 0%, #3f1a54 52%, #200b2c 100%);
+}
+.chapter--bright {
+  background: linear-gradient(180deg, #8a4a9e 0%, #5e2477 34%, #33124a 72%, #1c0726 100%);
+}
+
+.chapter__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chapter__head {
+  display: grid;
+  grid-template-columns: 1.4rem auto 1.4rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  text-align: center;
+}
+
+.chapter__rule {
+  height: 1px;
+  background: rgba(255, 196, 226, 0.45);
+}
+
+.chapter__title {
+  grid-column: 1 / -1;
+  margin-top: 0.5rem;
+  font-size: var(--fs-xl);
+}
+
+/* ---------------------------------------------------------
+   Chapter 1 — The Beginning
+   --------------------------------------------------------- */
+
+.begin__objects {
+  position: relative;
+  margin: clamp(1.25rem, 5vw, 2rem) 0;
+  min-height: clamp(12rem, 46vw, 16rem);
+}
+
+/* The doodles sit behind and to the left of the photo. */
+.begin__floats {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.begin__photo {
+  position: relative;
+  z-index: 2;
+  width: min(46%, 9.5rem);
+  margin-left: auto;
+  margin-right: 2%;
+}
+
+.begin__books {
+  position: absolute;
+  left: 6%;
+  top: 52%;
+  width: 32%;
+  max-width: 6.5rem;
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.begin__book {
+  height: 10px;
+  border-radius: 2px;
+  margin-bottom: 3px;
+}
+.begin__book:nth-child(1) {
+  background: linear-gradient(90deg, #c98fd8, #7d4a97);
+}
+.begin__book:nth-child(2) {
+  margin-left: 6px;
+  background: linear-gradient(90deg, #ffa8d8, #c06fb0);
+}
+.begin__book:nth-child(3) {
+  margin-left: 2px;
+  background: linear-gradient(90deg, #e0b165, #9a7434);
+}
+
+.begin__cap {
+  position: absolute;
+  left: 8%;
+  top: 6%;
+  animation: float-slow 7s ease-in-out infinite 1.2s;
+}
+
+.begin__cap-top {
+  width: 52px;
+  height: 52px;
+  transform: rotate(45deg);
+  border-radius: 3px;
+  background: linear-gradient(135deg, #7a4390, #2f1140);
+  border: 1px solid rgba(255, 196, 226, 0.22);
+  box-shadow: 0 6px 18px rgba(8, 2, 14, 0.7);
+}
+
+.begin__tassel {
+  position: absolute;
+  left: 22px;
+  top: 34px;
+  width: 3px;
+  height: 26px;
+  background: #e0b165;
+  transform-origin: top;
+  animation: tassel 6s ease-in-out infinite;
+}
+
+.begin__tassel::after {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 24px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #e0b165;
+}
+
+@keyframes tassel {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(6deg);
+  }
+}
+
+.begin__pencil {
+  position: absolute;
+  left: 40%;
+  bottom: 4%;
+  width: 4px;
+  height: 56px;
+  border-radius: 2px;
+  background: linear-gradient(#ffc4e2, #c98fd8);
+  /* The tilt is baked into the keyframes — a float-only animation would
+     overwrite the static transform and stand the pencil up straight. */
+  animation: pencil-float 9s ease-in-out infinite 0.6s;
+}
+
+@keyframes pencil-float {
+  0%,
+  100% {
+    transform: rotate(24deg) translateY(0);
+  }
+  50% {
+    transform: rotate(21deg) translateY(-9px);
+  }
+}
+
+.begin__star {
+  position: absolute;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+.begin__star--a {
+  left: 2%;
+  top: 34%;
+}
+.begin__star--b {
+  left: 30%;
+  bottom: 12%;
+}
+
+/* The notebook that opens on the chapter title. */
+.begin__notebook {
+  margin: 0 auto;
+  max-width: 17rem;
+  padding: 0.85rem 1.1rem;
+  border-radius: 4px 10px 10px 4px;
+  border: 1px solid rgba(255, 196, 226, 0.28);
+  border-left: 4px solid rgba(255, 168, 216, 0.7);
+  background: rgba(253, 244, 248, 0.07);
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  color: var(--text);
+}
+
+.begin__copy {
+  margin-top: clamp(1.5rem, 6vw, 2.4rem);
+  text-align: center;
+}
+
+.begin__lead {
+  font-size: var(--fs-lg);
+  text-wrap: balance;
+}
+
+.begin__body {
+  margin-top: 1.1rem;
+  font-size: var(--fs-sm);
+  color: var(--text-soft);
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+/* ---------------------------------------------------------
+   Chapter 2 — The Work
+   --------------------------------------------------------- */
+
+.work__deck {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1rem, 4vw, 1.6rem);
+  align-items: flex-start;
+  margin-top: clamp(1.6rem, 6vw, 2.4rem);
+}
+
+.work__chips {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  flex: 1 1 9.5rem;
+  min-width: 0;
+}
+
+.work__chip {
+  max-width: 100%;
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  font: 600 0.62rem/1 var(--font-mono);
+  letter-spacing: 0.06em;
+  border: 1px solid;
+  background: rgba(20, 7, 30, 0.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.work__chip:nth-child(1) {
+  color: var(--pink-300);
+  border-color: rgba(255, 196, 226, 0.28);
+  transform: rotate(-1.5deg);
+}
+.work__chip:nth-child(2) {
+  color: var(--pink-400);
+  border-color: rgba(255, 168, 216, 0.28);
+  transform: rotate(1deg);
+}
+.work__chip:nth-child(3) {
+  color: var(--violet-300);
+  border-color: rgba(201, 169, 233, 0.28);
+  transform: rotate(-0.5deg);
+}
+
+.work__photo {
+  flex: 0 0 auto;
+  width: min(38%, 8.5rem);
+}
+
+.work__aside {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.9rem, 4vw, 1.4rem);
+  margin-top: clamp(1.4rem, 6vw, 2rem);
+}
+
+.work__photo2 {
+  flex: 0 0 auto;
+  width: min(42%, 9rem);
+}
+
+.work__aside-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.work__badge {
+  display: inline-block;
+  /* Sits in a narrow column now — let it take two lines rather than
+     overflow its pill. */
+  padding: 0.5rem 0.8rem;
+  border-radius: 14px;
+  font: 600 0.58rem/1.5 var(--font-body);
+  letter-spacing: 0.12em;
+  color: #3a0f47;
+  background: linear-gradient(140deg, #ffd3ea, #ffa8d8);
+}
+
+.work__progress {
+  margin-top: clamp(1.6rem, 6vw, 2.2rem);
+}
+
+.work__progress-label {
+  font: 600 0.62rem/1 var(--font-body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.work__track {
+  margin-top: 0.65rem;
+  height: 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.work__bar {
+  height: 100%;
+  width: 0;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #ffd3ea, #ffa8d8 60%, #c86fd8);
+  transition: width 1600ms var(--ease-out);
+}
+
+.work__pct {
+  margin-top: 0.45rem;
+  font: 600 0.66rem/1 var(--font-mono);
+  color: var(--text-faint);
+}
+
+.work__copy {
+  margin-top: clamp(1.8rem, 7vw, 2.6rem);
+}
+
+.work__lead {
+  font-size: var(--fs-lg);
+  line-height: 1.35;
+}
+
+.work__body {
+  margin-top: 0.8rem;
+  font-size: var(--fs-sm);
+  color: var(--text-soft);
+}
+
+/* ---------------------------------------------------------
+   Chapter 3 — The Struggle
+   --------------------------------------------------------- */
+
+.struggle__banner-row {
+  margin-top: 1.4rem;
+  text-align: center;
+}
+
+.struggle__banner {
+  display: inline-block;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 196, 226, 0.25);
+  background: rgba(253, 244, 248, 0.07);
+  font: 600 0.68rem/1 var(--font-body);
+  letter-spacing: 0.04em;
+  color: rgba(255, 214, 240, 0.9);
+}
+
+.notif {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 1.4rem;
+}
+
+.notif__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.notif__item {
+  align-self: flex-start;
+  max-width: 88%;
+  padding: 0.75rem 0.9rem;
+  border-radius: 16px 16px 16px 5px;
+  background: rgba(253, 244, 248, 0.09);
+  border: 1px solid rgba(253, 244, 248, 0.14);
+  opacity: 0;
+  transform: translate3d(calc(-16px * var(--motion)), calc(10px * var(--motion)), 0);
+  transition:
+    opacity 480ms var(--ease-out),
+    transform 480ms var(--ease-out);
+}
+
+.notif__item.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.notif__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  font: 600 0.56rem/1 var(--font-body);
+  letter-spacing: 0.14em;
+  color: rgba(255, 196, 226, 0.72);
+}
+
+.notif__text {
+  margin-top: 0.4rem;
+  font: 500 0.86rem/1.4 var(--font-body);
+  color: var(--text);
+}
+
+/* A typing indicator instead of words we can't put in anyone's mouth. */
+.notif__typing {
+  align-self: flex-end;
+  display: flex;
+  gap: 4px;
+  padding: 0.55rem 0.8rem;
+  border-radius: 16px 16px 5px 16px;
+  background: rgba(255, 168, 216, 0.16);
+  border: 1px solid rgba(255, 168, 216, 0.22);
+  opacity: 0;
+  transition: opacity 400ms var(--ease-out);
+}
+
+.notif__typing.is-in {
+  opacity: 1;
+}
+
+.notif__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--pink-300);
+  animation: notif-dot 1.3s ease-in-out infinite;
+}
+.notif__dot:nth-child(2) {
+  animation-delay: 0.18s;
+}
+.notif__dot:nth-child(3) {
+  animation-delay: 0.36s;
+}
+
+@keyframes notif-dot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+.struggle__deck {
+  display: flex;
+  gap: clamp(0.9rem, 4vw, 1.4rem);
+  align-items: flex-start;
+  margin-top: clamp(1.8rem, 7vw, 2.4rem);
+}
+
+.struggle__photo {
+  flex: 0 0 auto;
+  width: min(44%, 9.5rem);
+}
+
+.struggle__refrains {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 1.4rem;
+  text-align: right;
+  font: 400 0.92rem/1.35 var(--font-display);
+  font-style: italic;
+  color: rgba(253, 244, 248, 0.55);
+}
+
+/* Deliberately more air than anything else in this chapter — the change of
+   pace is what signals the change of tone. */
+.struggle__quiet {
+  margin-top: clamp(2.5rem, 10vw, 3.5rem);
+  text-align: center;
+}
+
+.struggle__quiet-lead {
+  font-size: var(--fs-md);
+  font-family: var(--font-display);
+  font-style: italic;
+  color: rgba(253, 244, 248, 0.62);
+}
+
+.struggle__photo2 {
+  width: min(58%, 12rem);
+  margin: clamp(1.25rem, 5vw, 1.75rem) auto 0;
+}
+
+.struggle__closer {
+  margin-top: clamp(2rem, 8vw, 2.8rem);
+  text-align: center;
+  font-size: var(--fs-lg);
+  color: rgba(253, 244, 248, 0.9);
+}
+
+/* ---------------------------------------------------------
+   Chapter 4 — Somehow, we made it
+   --------------------------------------------------------- */
+
+.calm__inner {
+  gap: 0;
+}
+
+.calm__cup {
+  position: relative;
+  width: 66px;
+  height: 56px;
+  margin: clamp(2.5rem, 10vw, 4rem) auto 0;
+  border-radius: 8px 8px 26px 26px;
+  background: linear-gradient(160deg, #fdf4f8, #e6d0e0);
+  box-shadow: 0 12px 30px -8px rgba(10, 3, 18, 0.7);
+  animation: float-slow 9s ease-in-out infinite;
+}
+
+.calm__cup::after {
+  content: "";
+  position: absolute;
+  right: -18px;
+  top: 12px;
+  width: 22px;
+  height: 24px;
+  border-radius: 50%;
+  border: 5px solid #f0e2ec;
+  border-left-color: transparent;
+}
+
+.calm__cup::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  top: 7px;
+  height: 7px;
+  border-radius: 4px;
+  background: #a86ec0;
+}
+
+.calm__steam {
+  position: absolute;
+  bottom: 100%;
+  width: 5px;
+  height: 22px;
+  border-radius: 3px;
+  background: linear-gradient(rgba(255, 214, 240, 0), rgba(255, 214, 240, 0.5));
+  animation: steam 4.5s ease-in-out infinite;
+}
+.calm__steam--a {
+  left: 16px;
+}
+.calm__steam--b {
+  left: 40px;
+  height: 26px;
+  animation-delay: 1.4s;
+}
+
+@keyframes steam {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: translateY(4px) scaleY(0.85);
+  }
+  50% {
+    opacity: 0.75;
+    transform: translateY(-4px) scaleY(1.1);
+  }
+}
+
+.calm__years {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-top: clamp(2rem, 8vw, 3rem);
+  font: 600 0.82rem/1 var(--font-body);
+  color: rgba(253, 244, 248, 0.32);
+}
+
+.calm__year {
+  transition:
+    color 700ms var(--ease-out),
+    font-size 700ms var(--ease-out);
+}
+
+.calm__year.is-now {
+  font-size: 1.1rem;
+  color: var(--pink-300);
+}
+
+.calm__copy {
+  margin-top: clamp(2.5rem, 10vw, 3.5rem);
+  text-align: center;
+}
+
+.calm__lead {
+  font-size: clamp(1.15rem, 5.2vw, 1.45rem);
+  line-height: 1.75;
+  font-family: var(--font-display);
+  color: rgba(253, 244, 248, 0.9);
+}
+
+.calm__outro {
+  margin-top: clamp(1.6rem, 7vw, 2.2rem);
+  font-size: var(--fs-lg);
+  font-family: var(--font-display);
+  font-style: italic;
+  line-height: 1.35;
+  color: var(--pink-300);
+}
+
+/* ---------------------------------------------------------
+   Chapter 5 — The Finish Line
+   --------------------------------------------------------- */
+
+.finish__inner {
+  text-align: center;
+}
+
+.finish__beat1 {
+  font-size: var(--fs-lg);
+  font-family: var(--font-display);
+  font-style: italic;
+  color: rgba(253, 244, 248, 0.75);
+}
+
+.finish__beat2 {
+  margin-top: 0.6rem;
+  font-size: var(--fs-xl);
+}
+
+.finish__stack {
+  position: relative;
+  margin: clamp(1.5rem, 6vw, 2.4rem) auto 0;
+  width: min(100%, 19rem);
+}
+
+.finish__halo {
+  position: absolute;
+  left: 50%;
+  top: -6%;
+  transform: translateX(-50%);
+  width: 130%;
+  height: 116%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    rgba(255, 214, 240, 0.38),
+    rgba(255, 214, 240, 0) 68%
+  );
+}
+
+.finish__main {
+  position: relative;
+  /* Sits left so its caption clears the card that overlaps from the right. */
+  margin-right: auto;
+  width: min(70%, 12.5rem);
+}
+
+/* The photo resolves as the gown line lands. */
+.finish__main .photo img,
+.finish__main .photo__placeholder {
+  filter: blur(18px);
+  transition: filter 1400ms var(--ease-out);
+}
+
+.finish__stack.is-clear .finish__main .photo img,
+.finish__stack.is-clear .finish__main .photo__placeholder {
+  filter: blur(0);
+}
+
+.finish__second {
+  position: relative;
+  width: min(46%, 8rem);
+  /* Just enough overlap to read as a stack without covering the caption
+     on the card underneath. */
+  margin: -4% 0 0 auto;
+  z-index: 2;
+}
+
+.finish__closer {
+  margin-top: clamp(2.2rem, 9vw, 3rem);
+  font-size: var(--fs-sm);
+  line-height: 1.75;
+  color: var(--text-soft);
+}
+
+.finish__finale {
+  margin-top: 1.2rem;
+  /* Sized to hold her full name across three lines without running off
+     the bottom of the screen. */
+  font-size: clamp(1.6rem, 7.4vw, 2.4rem);
+  line-height: 1.1;
+  color: #fff;
+  text-shadow: 0 0 34px rgba(255, 180, 225, 0.6);
+  text-wrap: balance;
+}

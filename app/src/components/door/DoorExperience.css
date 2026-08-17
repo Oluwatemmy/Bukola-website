@@ -1,0 +1,371 @@
+/* ============================================================
+   Screen 1 — the whole opening lives in one fixed stage.
+   ============================================================ */
+
+.door-x {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 34%, #4a1f5c 0%, #2a0f36 55%, #140520 100%);
+  transition:
+    opacity 900ms var(--ease-out),
+    background 1200ms var(--ease-out);
+}
+
+/* The room is dim before the door arrives, then the light comes up. */
+.door-x.is-arriving {
+  background: radial-gradient(circle at 50% 34%, #2a1136 0%, #17081f 55%, #0a0210 100%);
+}
+
+.door-x.is-arriving .ambient {
+  animation: door-ambient-in 1600ms var(--ease-out) both;
+}
+
+@keyframes door-ambient-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.door-x.is-entering {
+  background: radial-gradient(circle at 50% 38%, #7a3a83 0%, #3d1550 55%, #1a0724 100%);
+}
+
+.door-x.is-lifting {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- door ---------- */
+
+.door-x__stage {
+  position: relative;
+  z-index: 2;
+  /* Fixed size, anchored to the top: the door must not shift as the copy
+     below it changes height from beat to beat. The gap absorbs it instead. */
+  flex: 0 0 auto;
+  display: grid;
+  justify-items: center;
+  width: 100%;
+  padding-top: max(4svh, env(safe-area-inset-top));
+}
+
+/* Darkens the lower third so the copy always reads over the scene. */
+.door-x__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(16, 4, 24, 0.45) 0,
+    rgba(16, 4, 24, 0) 18%,
+    rgba(16, 4, 24, 0.5) 56%,
+    rgba(12, 3, 20, 0.96) 84%
+  );
+}
+
+/* ---------- copy + buttons, parked in the thumb zone ---------- */
+
+.door-x__panel {
+  position: relative;
+  z-index: 20;
+  /* Sits in the thumb zone; `auto` keeps it there however tall it gets. */
+  flex: 0 0 auto;
+  margin-top: auto;
+  width: 100%;
+  max-width: 26rem;
+  padding: clamp(1.5rem, 5svh, 3rem) var(--gutter) calc(2.25rem + env(safe-area-inset-bottom));
+  text-align: center;
+}
+
+.door-x__line {
+  font-size: var(--fs-xl);
+  color: var(--text);
+  text-shadow: 0 2px 26px rgba(14, 3, 22, 0.95);
+  animation: door-line-in 620ms var(--ease-out) both;
+}
+
+.door-x__line--ask {
+  font-size: clamp(1.6rem, 7.4vw, 2.3rem);
+  text-wrap: balance;
+}
+
+.door-x__line--go {
+  animation-delay: 120ms;
+}
+
+@keyframes door-line-in {
+  from {
+    opacity: 0;
+    transform: translateY(calc(14px * var(--motion)));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.door-x__sub {
+  margin-top: 0.75rem;
+  font: 500 0.72rem/1 var(--font-body);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.door-x__accent {
+  color: var(--pink-300);
+}
+
+.door-x__whispers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.6rem;
+}
+
+.door-x__whisper {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: rgba(253, 244, 248, 0.34);
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+/* She wore me down — the room behind has already started to warm up. */
+.door-x.is-warm .door__frame {
+  box-shadow:
+    0 25px 50px -12px rgba(8, 2, 14, 0.85),
+    0 0 46px 8px rgba(255, 196, 232, 0.2);
+}
+
+.door-x__ask--final .door-x__line {
+  font-size: clamp(1.55rem, 7.2vw, 2.1rem);
+  text-wrap: balance;
+}
+
+.door-x__ask--final .door-x__whisper {
+  margin-bottom: 0.7rem;
+  color: rgba(253, 244, 248, 0.44);
+  font-size: 0.9rem;
+}
+
+/* ---------- YES / NO ---------- */
+
+.door-x__buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(0.75rem + var(--step) * 0.08rem);
+  margin-top: 1.5rem;
+}
+
+.door-x__ask {
+  --step: 0;
+}
+
+.btn-yes {
+  /* Grows a step at a time as NO is refused. */
+  width: 100%;
+  height: calc(58px + var(--step) * 4.8px);
+  border-radius: 999px;
+  font: 700 calc(1.19rem + var(--step) * 0.045rem) / 1 var(--font-body);
+  color: #3a0f47;
+  background: linear-gradient(140deg, #ffd3ea, #ffa8d8 52%, #d089ea);
+  box-shadow:
+    0 14px 36px -8px rgba(255, 150, 210, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition:
+    height 420ms var(--ease-out),
+    font-size 420ms var(--ease-out),
+    transform 160ms var(--ease-out);
+}
+
+.btn-yes:active {
+  transform: scale(0.975);
+}
+
+.btn-yes--wide {
+  margin-top: 1.6rem;
+  height: 62px;
+  letter-spacing: 0.06em;
+  font-size: 1.06rem;
+}
+
+.btn-no {
+  position: relative;
+  height: calc(52px - var(--step) * 5.2px);
+  padding: 0 calc(22px - var(--step) * 2px);
+  border-radius: 999px;
+  font: 600 calc(0.94rem - var(--step) * 0.05rem) / 1 var(--font-body);
+  color: rgba(240, 215, 245, calc(0.78 - var(--step) * 0.07));
+  border: 1px solid rgba(240, 215, 245, calc(0.3 - var(--step) * 0.03));
+  background: rgba(24, 8, 34, 0.4);
+  transition:
+    height 420ms var(--ease-out),
+    padding 420ms var(--ease-out),
+    font-size 420ms var(--ease-out),
+    color 420ms var(--ease-out),
+    transform 160ms var(--ease-out);
+}
+
+/* ---------- NO on the run ----------
+   It relocates only after a successful tap, so it never dodges her finger.
+   Fixed + transform, so nothing around it reflows when it moves.          */
+
+.btn-no--loose {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 60;
+  transform: translate3d(var(--nx, 0), var(--ny, 0), 0);
+  animation: no-land 420ms var(--ease-out) backwards;
+}
+
+@keyframes no-land {
+  0% {
+    opacity: 0;
+    transform: translate3d(var(--nx, 0), var(--ny, 0), 0) scale(0.35) rotate(-12deg);
+  }
+  55% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(var(--nx, 0), var(--ny, 0), 0) scale(1) rotate(0deg);
+  }
+}
+
+.btn-no--loose:active {
+  transform: translate3d(var(--nx, 0), var(--ny, 0), 0) scale(0.9);
+}
+
+/* If she hasn't found it after a few seconds, it gives itself away. */
+.btn-no--peeking {
+  animation: no-peek 1.9s ease-in-out infinite;
+}
+
+@keyframes no-peek {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 196, 226, 0);
+    border-color: rgba(240, 215, 245, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px rgba(255, 196, 226, 0.35);
+    border-color: rgba(255, 196, 226, 0.85);
+  }
+}
+
+/* Holds NO's place in the column so the panel doesn't jump when it leaves. */
+.btn-no__spacer {
+  display: block;
+  height: calc(52px - var(--step) * 5.2px);
+}
+
+.door-x__no-hint {
+  margin-top: 0.7rem;
+  font: 400 0.82rem/1.4 var(--font-display);
+  font-style: italic;
+  color: rgba(253, 244, 248, 0.4);
+}
+
+/* However small NO looks, it keeps a 44px tap target. The joke is never a trap. */
+.btn-no::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: max(100%, 64px);
+  height: 44px;
+}
+
+.btn-no:active {
+  transform: scale(0.94);
+}
+
+/* ---------- helpers ---------- */
+
+/* ---------- her side of the knock-knock ---------- */
+
+.btn-reply {
+  margin-top: 1.9rem;
+  min-height: 54px;
+  padding: 0 1.5rem;
+  border-radius: 999px;
+  font: 600 1rem/1 var(--font-body);
+  color: var(--pink-200);
+  border: 1px solid rgba(255, 196, 226, 0.42);
+  background: rgba(38, 14, 52, 0.55);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 8px 26px -10px rgba(255, 150, 210, 0.45);
+  transition: transform 160ms var(--ease-out);
+  /* Enters a beat after the line, so the line is read first. `backwards`
+     rather than `both` — a forwards fill would pin `transform` and kill
+     the press state below. */
+  animation:
+    door-line-in 520ms var(--ease-out) 620ms backwards,
+    reply-breathe 3.4s ease-in-out 1.3s infinite;
+}
+
+.btn-reply:active {
+  transform: scale(0.96);
+}
+
+@keyframes reply-breathe {
+  0%,
+  100% {
+    box-shadow: 0 8px 26px -10px rgba(255, 150, 210, 0.4);
+    border-color: rgba(255, 196, 226, 0.42);
+  }
+  50% {
+    box-shadow: 0 10px 32px -8px rgba(255, 150, 210, 0.75);
+    border-color: rgba(255, 196, 226, 0.75);
+  }
+}
+
+/* ---------- the light that becomes the next screen ---------- */
+
+.door-x__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.55);
+  background: radial-gradient(
+    circle at 50% 44%,
+    #fffaf4 0%,
+    #ffd8ee 26%,
+    #e79ada 46%,
+    #8a4a9e 68%,
+    rgba(42, 15, 54, 0) 86%
+  );
+  transition:
+    opacity 760ms var(--ease-out),
+    transform 1100ms var(--ease-out);
+}
+
+.door-x.is-veiled .door-x__veil {
+  opacity: 1;
+  transform: scale(1.35);
+}
+
+/* Short phones: give the copy priority over door size. */
+@media (max-height: 680px) {
+  .door {
+    --door-w: min(72vw, calc(44svh * 0.72), 300px);
+  }
+  .door-x__line {
+    font-size: clamp(1.5rem, 6.6vw, 2rem);
+  }
+}

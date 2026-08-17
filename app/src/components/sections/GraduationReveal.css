@@ -1,0 +1,190 @@
+.grad {
+  background: radial-gradient(120% 80% at 50% 20%, #7a3a97 0%, #4a1a66 42%, #220b2e 100%);
+  padding-top: calc(var(--section-y) * 0.85);
+  padding-bottom: calc(var(--section-y) * 0.7);
+  text-align: center;
+}
+
+/* The remains of the doorway light, sitting behind the headline. */
+.grad__glow {
+  position: absolute;
+  left: 50%;
+  top: 6%;
+  transform: translateX(-50%);
+  width: min(120vw, 32rem);
+  height: min(70vh, 26rem);
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    rgba(255, 216, 238, 0.42),
+    rgba(255, 216, 238, 0) 68%
+  );
+}
+
+.grad__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Everything lifts in once we're through the door. */
+.grad__eyebrow,
+.grad__headline,
+.grad__sub,
+.grad__photo,
+.grad__hint {
+  opacity: 0;
+  transform: translateY(calc(22px * var(--motion)));
+  transition:
+    opacity 900ms var(--ease-out),
+    transform 900ms var(--ease-out);
+}
+
+.grad.is-entered .grad__eyebrow {
+  opacity: 1;
+  transform: none;
+  transition-delay: 100ms;
+}
+.grad.is-entered .grad__headline {
+  opacity: 1;
+  transform: none;
+  transition-delay: 220ms;
+}
+.grad.is-entered .grad__sub {
+  opacity: 1;
+  transform: none;
+  transition-delay: 380ms;
+}
+.grad.is-entered .grad__photo {
+  opacity: 1;
+  transform: rotate(var(--tilt));
+}
+
+/* She lands first; the shirt slides in behind her a beat later. */
+.grad__photo--b {
+  transform: translate3d(calc(28px * var(--motion)), calc(12px * var(--motion)), 0);
+}
+
+.grad.is-entered .grad__photo--a {
+  transition-delay: 540ms;
+}
+
+.grad.is-entered .grad__photo--b {
+  transition-delay: 760ms;
+}
+.grad.is-entered .grad__hint {
+  opacity: 1;
+  transform: none;
+  transition-delay: 1200ms;
+}
+
+.grad__headline {
+  margin-top: 0.6rem;
+  font-size: var(--fs-hero);
+  line-height: 0.98;
+  text-shadow: 0 0 34px rgba(255, 180, 225, 0.55);
+  text-wrap: balance;
+}
+
+.grad__sub {
+  margin-top: 0.75rem;
+  font-size: var(--fs-md);
+  color: var(--pink-300);
+}
+
+/* ---------- the two reveal photos ---------- */
+
+.grad__photos {
+  position: relative;
+  width: min(88vw, 20.5rem);
+  margin: 1.75rem auto 0;
+}
+
+/* Her, front and centre — the card that carries the moment. */
+.grad__photo--a {
+  width: 70%;
+  margin-right: auto;
+}
+
+/* The signed shirt, tucked in from the right. Sits high enough that it
+   never crops the caption on the card underneath. */
+.grad__photo--b {
+  position: absolute;
+  right: 0;
+  bottom: 15%;
+  width: 55%;
+  z-index: 2;
+}
+
+.grad__spark {
+  position: absolute;
+  font-size: 1rem;
+  animation: grad-float 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.grad__spark--a {
+  left: 2%;
+  bottom: 16%;
+}
+
+.grad__spark--b {
+  right: 4%;
+  bottom: 9%;
+  animation-delay: 2.2s;
+}
+
+@keyframes grad-float {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
+
+.grad__hint {
+  margin-top: 2.2rem;
+  font: 500 0.64rem/1 var(--font-body);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(253, 244, 248, 0.42);
+}
+
+/* Shorter phones: keep the whole payoff on one screen. */
+@media (max-height: 740px) {
+  .grad__photos {
+    width: min(72vw, 15.5rem);
+  }
+  .grad__headline {
+    font-size: clamp(2.2rem, 11vw, 3rem);
+  }
+  .grad__hint {
+    margin-top: 1.5rem;
+  }
+}
+
+.grad__arrow {
+  display: block;
+  width: 1px;
+  height: 34px;
+  margin: 0.8rem auto 0;
+  background: linear-gradient(rgba(255, 196, 226, 0.7), rgba(255, 196, 226, 0));
+  animation: grad-arrow 2.4s ease-in-out infinite;
+  transform-origin: top;
+}
+
+@keyframes grad-arrow {
+  0%,
+  100% {
+    transform: scaleY(0.5);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,32 @@
+.page {
+  position: relative;
+  width: 100%;
+  overflow-x: clip;
+}
+
+/* Section-to-section joins. Each screen carries its own gradient, and this
+   soft seam stops the change of light reading as a hard cut. */
+.page > section + section::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 90px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(12, 3, 20, 0.45), rgba(12, 3, 20, 0));
+  z-index: 0;
+}
+
+.journey > section + section::before,
+.journey > section:first-child::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 90px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(12, 3, 20, 0.45), rgba(12, 3, 20, 0));
+  z-index: 0;
+}

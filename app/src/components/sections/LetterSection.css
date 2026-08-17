@@ -1,0 +1,55 @@
+.letter {
+  background: radial-gradient(120% 80% at 50% 22%, #4e2166 0%, #2c1039 52%, #180620 100%);
+  padding-top: calc(var(--section-y) * 1.1);
+  padding-bottom: calc(var(--section-y) * 1.2);
+}
+
+.letter__inner {
+  text-align: center;
+}
+
+.letter__title {
+  margin-top: 0.65rem;
+  font-size: var(--fs-xl);
+}
+
+.letter__body {
+  margin-top: clamp(2rem, 8vw, 2.75rem);
+  text-align: left;
+}
+
+.letter__greeting {
+  font-size: var(--fs-md);
+  line-height: 1.75;
+  color: rgba(253, 244, 248, 0.78);
+}
+
+.letter__para {
+  margin-top: 1.1rem;
+  font-size: var(--fs-body);
+  line-height: 1.85;
+  color: rgba(253, 244, 248, 0.72);
+}
+
+/* The line that has to stay. It is the only display-serif sentence here. */
+.letter__quote {
+  margin: 1.6rem 0;
+  font-size: clamp(1.3rem, 5.8vw, 1.6rem);
+  line-height: 1.55;
+  color: var(--pink-200);
+  text-wrap: pretty;
+}
+
+.letter__signoff {
+  margin-top: 1.6rem;
+  font-size: var(--fs-md);
+  color: rgba(253, 244, 248, 0.78);
+}
+
+.letter__rule {
+  display: block;
+  width: 56px;
+  height: 1px;
+  margin: clamp(2.5rem, 10vw, 3.5rem) auto 0;
+  background: rgba(255, 196, 226, 0.4);
+}

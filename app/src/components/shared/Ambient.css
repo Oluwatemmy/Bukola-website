@@ -1,0 +1,76 @@
+.ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: clip;
+  z-index: 0;
+}
+
+.ambient__stars {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background-image:
+    radial-gradient(1px 1px at 26px 22px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1.4px 1.4px at 110px 74px, rgba(255, 214, 240, 0.55), transparent),
+    radial-gradient(1px 1px at 62px 148px, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 176px 196px;
+  animation: ambient-twinkle 5s ease-in-out infinite;
+}
+
+@keyframes ambient-twinkle {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.72;
+  }
+}
+
+.ambient__petal {
+  position: absolute;
+  top: -20px;
+  width: 7px;
+  height: 10px;
+  border-radius: 60% 60% 55% 55%;
+  background: var(--pink-500);
+  animation: ambient-petal 13s linear infinite;
+}
+
+.ambient__petal--0 {
+  left: 17%;
+  animation-delay: 1s;
+}
+
+.ambient__petal--1 {
+  left: 76%;
+  width: 6px;
+  height: 9px;
+  background: var(--lilac-300);
+  animation-duration: 16s;
+  animation-delay: 4s;
+}
+
+.ambient__petal--2 {
+  left: 44%;
+  width: 5px;
+  height: 8px;
+  background: var(--pink-300);
+  animation-duration: 19s;
+  animation-delay: 7s;
+}
+
+@keyframes ambient-petal {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(26px, 105vh, 0) rotate(220deg);
+    opacity: 0;
+  }
+}
