@@ -87,7 +87,11 @@ export function Photo({
         draggable={false}
       />
 
-      {state !== "ready" && (
+      {/* Still downloading: a soft shimmer, no text. The labelled slot below
+          is for a genuinely missing file and should never be seen by her. */}
+      {state === "pending" && <div className="photo__loading" aria-hidden="true" />}
+
+      {state === "missing" && (
         <div className="photo__placeholder" aria-hidden="true">
           <span className="photo__frame" />
           <span className="photo__label">{meta.label}</span>

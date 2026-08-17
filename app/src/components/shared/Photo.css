@@ -32,6 +32,46 @@
   }
 }
 
+/* ---------- still loading ----------
+   A slow plum shimmer. Reads as "developing", not as broken. */
+
+.photo__loading {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+        100deg,
+        rgba(255, 214, 240, 0) 20%,
+        rgba(255, 214, 240, 0.13) 42%,
+        rgba(255, 214, 240, 0) 64%
+      )
+      no-repeat,
+    linear-gradient(150deg, #4a2050, #1d0a27);
+  background-size:
+    260% 100%,
+    100% 100%;
+  animation: photo-shimmer 2.1s ease-in-out infinite;
+}
+
+@keyframes photo-shimmer {
+  from {
+    background-position:
+      160% 0,
+      0 0;
+  }
+  to {
+    background-position:
+      -60% 0,
+      0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo__loading {
+    animation: none;
+  }
+}
+
 /* ---------- placeholder ---------- */
 
 .photo__placeholder {
